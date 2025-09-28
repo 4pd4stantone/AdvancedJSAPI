@@ -1,4 +1,4 @@
-export {getDBZData, getPlanet};
+export {getDBZData};
 
 async function getDBZData() {
   const response = await fetch(
@@ -11,14 +11,5 @@ async function getDBZData() {
 
 getDBZData()
 
-async function getPlanet() {
-  const response = await fetch(
-    "https://dragonball-api.com/api/planets"
-  );
-  const planetData = await response.json();
-  const planetItems = planetData.items;
-  return planetItems
-}
 
-getPlanet()
 

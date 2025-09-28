@@ -1,6 +1,7 @@
 //4. (3%) Organize your JavaScript code into at least three (3) different module files, and import functions and data across files as necessary.
-import { getDBZData, getPlanet} from "./opponent.js";
-export { opponentBtn };
+import { getDBZData} from "./opponent.js";
+import { getPlanet} from "./planet.js";
+
 
 const fighterSelect = document.getElementById("fighterSelect");
 
@@ -12,7 +13,9 @@ const opponentBtn = document.getElementById("random-opponent");
 
 const backgroundImg = document.getElementById("backgroundImg");
 
-const planetBtn = document.getElementById("planet")
+const planetBtn = document.getElementById("planet");
+
+const planetName = document.getElementById("planet-name");
 
 async function getFighterNames() {
   changePlanet();
@@ -114,6 +117,13 @@ async function changePlanet() {
   backgroundImg.style.backgroundSize = 'cover';
   backgroundImg.style.backgroundRepeat = 'no-repeat';
   backgroundImg.style.backgroundPosition = 'center';
+  planetName.textContent = "";
+  let namePlanet = planetImg[i].name;
+  if (namePlanet == "Tierra") {
+    planetName.textContent = `Earth`;
+  } else {
+  planetName.textContent = `${namePlanet}`;
+  }
   if (i < 9) {
     i+=1;
     return i;

@@ -23,7 +23,7 @@
 }
 
 #backgroundImg {
-  outline: 10px solid red;
+  /* outline: 10px solid red; */
   height: 770px;
 }
 
@@ -33,7 +33,7 @@ main {
 }
 
 .fighters {
-  outline: 10px red solid;
+  /* outline: 10px red solid; */
   width: auto;
   height: 410px;
 }
@@ -49,9 +49,9 @@ main {
 }
 
 .outterbox {
-  outline: 10px orange solid;
+  /* outline: 10px orange solid; */
   width: 360px;
-  height: 500px;
+  height: 700px;
 }
 
 #pick-fighter {
@@ -159,7 +159,7 @@ main {
 }
 
 #planet-box {
-  outline: 10px red solid;
+  /* outline: 10px red solid; */
 }
 
 #planet {
@@ -167,8 +167,8 @@ main {
   width: 220px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 10px;
-  margin-top: 5px;
+  margin-bottom: 20px;
+  margin-top: 20px;
   text-align: center;
   font-size: 30px;
   letter-spacing: 1px;
@@ -196,9 +196,15 @@ main {
 }
 
 #planet-name {
-  font-size: 30px;
+  font-size: 40px;
   letter-spacing: 1px;
   font-family: "Saiyan Sans";
-  margin: 0 auto 0 auto;
+  margin: 10px auto 0px auto;
   display: block;
+  color: #f6b93e;
+  text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000,
+    1.5px 1.5px #000, -1.5px -1.5px #000, -1.5px 1.5px #000, 1.5px -1.5px #000;
+    width: 300px;
+    /* outline: 10px black solid; */
+    text-align: center;
 }
