@@ -1,0 +1,142 @@
+//4. (3%) Organize your JavaScript code into at least three (3) different module files, and import functions and data across files as necessary.
+import { getDBZData, getPlanet} from "./opponent.js";
+export { opponentBtn };
+
+const fighterSelect = document.getElementById("fighterSelect");
+
+const fighter = document.getElementById("fighter");
+
+const infoDump1 = document.getElementById("infoDump1");
+
+const opponentBtn = document.getElementById("random-opponent");
+
+const backgroundImg = document.getElementById("backgroundImg");
+
+const planetBtn = document.getElementById("planet")
+
+async function getFighterNames() {
+  changePlanet();
+  const fighterItems = await getDBZData();
+  
+  console.log(fighterItems[0].ki);
+  //2. (15%) Create user interaction with the API through a search feature, paginated gallery, or similar. This feature should use GET requests to retrieve associated data.
+  fighterItems.forEach((fighter) => {
+    if (fighter.ki == "0" || fighter.ki == "unknown") {
+      return console.log(fighter.ki);
+    } else {
+      const options = document.createElement("option");
+      fighterSelect.appendChild(options);
+      options.value = fighter.name;
+      options.textContent = fighter.name;
+    }
+  });
+  getFighterImg();
+  
+}
+
+getFighterNames();
+
+fighterSelect.addEventListener("change", getFighterImg);
+
+//3. (15%) Make use of Promises and async/await syntax as appropriate.
+
+async function getFighterImg() {
+  const fighterImg = await getDBZData();
+  // console.log(fighterImg);
+  let fighterId = fighterSelect.value;
+  console.log(fighterImg);
+
+  fighterImg.forEach((character) => {
+    if (character.name === fighterId) {
+      // removing the flipping of images using the style transform css attribute
+      fighter.style.transform = "";
+      fighter.src = character.image;
+      console.log(character)
+      let name = character.name;
+      let race = character.race;
+      let gender = character.gender;
+      let ki = character.ki; // need to remove dots and turn into a number
+      let maxKi = character.maxKi;
+      infoDump1.innerHTML = `<h1 class="white" id="fighter-name">${name}</h1><h2 class="yellow">${race} - ${gender}</h2><h2 class="white">KI: ${ki}</h2><h2 class="white">maxKi: ${maxKi}</h2>`;
+
+      // array and forEach to flip some images to face opponent.
+      let array = [
+        3, 5, 9, 14, 15, 16, 19, 20, 22, 23, 25, 33, 40, 43, 63, 64, 65, 66, 69, 70,
+        71, 72, 73, 74, 75,
+      ];
+      array.forEach((num) => {
+        if (character.id === num) {
+          fighter.style.transform = "scaleX(-1)";
+        }
+      });
+    }
+  });
+}
+
+opponentBtn.addEventListener("click", getOpponentImg);
+
+async function getOpponentImg() {
+  const opponentImg = await getDBZData();
+  let i = Math.floor(Math.random() * 47);
+  console.log(typeof i)
+  console.log(opponentImg[i].name);
+  let fighterId = fighterSelect.value;
+  console.log(fighterId)
+  if (opponentImg[i].ki == "0" || opponentImg[i].ki == "unknown" || fighterId == opponentImg[i].name) {
+    getOpponentImg();
+  } else {
+    opponent.style.transform = "";
+    opponent.src = opponentImg[i].image;
+    let name = opponentImg[i].name;
+    let race = opponentImg[i].race;
+    let gender = opponentImg[i].gender;
+    let ki = opponentImg[i].ki; // need to remove dots and turn into a number
+    let maxKi = opponentImg[i].maxKi;
+    infoDump2.innerHTML = `<h1 class="white" id="fighter-name">${name}</h1><h2 class="yellow">${race} - ${gender}</h2><h2 class="white">KI: ${ki}</h2><h2 class="white">maxKi: ${maxKi}</h2>`;
+    let array = [0, 1, 17, 23, 35, 36, 37, 41, 47 ];
+    array.forEach((num) => {
+      if (i == num) {
+        opponent.style.transform = "scaleX(-1)";
+      }
+    });
+  }
+}
+
+planetBtn.addEventListener('click', changePlanet);
+
+let i = 0
+
+async function changePlanet() {
+  const planetImg = await getPlanet();
+  const imgUrl = planetImg[i].image;
+  console.log(planetImg)
+  backgroundImg.style.backgroundImage = `url(${imgUrl})`;
+  backgroundImg.style.backgroundSize = 'cover';
+  backgroundImg.style.backgroundRepeat = 'no-repeat';
+  backgroundImg.style.backgroundPosition = 'center';
+  if (i < 9) {
+    i+=1;
+    return i;
+  } else {
+    i = 0;
+    return i;
+  }
+
+}
+
+
+
+
+// (not an obligation) Enable user manipulation of data within the API through the use of POST, PUT, or PATCH requests. Ensure your chosen API supports this feature before beginning.
+
+//5. (5%) Ensure the program runs as expected, without any undesired behavior caused by misunderstanding of the JavaScript event loop (such as race conditions, API calls being handled out of order, etc.).
+
+//6. (5%) Create an engaging user experience through the use of HTML and CSS.
+
+//7. (10%) Ensure that the program runs without errors (comment out things that do not work, and explain your blockers - you can still receive partial credit).
+
+//8. (5%) Commit frequently to the git repository. So far 2 commits.
+
+//9. (2%) Include a README file that contains a description of your application.
+
+//10. (5%) Level of effort displayed in creativity, presentation, and user experience.

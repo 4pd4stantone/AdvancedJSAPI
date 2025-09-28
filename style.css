@@ -1,45 +1,204 @@
+@font-face {
+  font-family: "Saiyan Sans";
+  src: url("./fonts/Saiyan-Sans.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
+@font-face {
+  font-family: "Saiyan Sans Left";
+  src: url("./fonts/Saiyan-Sans\ Left\ Oblique.ttf") format("truetype");
+  font-weight: 400;
+  font-style: oblique;
+  font-display: swap;
+}
 
+@font-face {
+  font-family: "Saiyan Sans Right";
+  src: url("./fonts/Saiyan-Sans\ Right\ Oblique.ttf") format("truetype");
+  font-weight: 400;
+  font-style: oblique;
+  font-display: swap;
+}
 
+#backgroundImg {
+  outline: 10px solid red;
+  height: 770px;
+}
 
 main {
-    display: flex;
-    justify-content: center;
-    
+  display: flex;
+  justify-content: center;
 }
 
 .fighters {
-    outline: 1px red solid;
-    width: 25vw;
-    height: 40vh;
+  outline: 10px red solid;
+  width: auto;
+  height: 410px;
+}
+
+#fighter,
+#opponent {
+  object-fit: scale-down;
+  width: auto;
+  height: 430px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 .outterbox {
-    outline: 1px orange solid;
-    width: 25vw;
-    height: 80vh;
-    margin: 100px 200px 200px 100px;
+  outline: 10px orange solid;
+  width: 360px;
+  height: 500px;
 }
 
-h2 {
-    text-align: center;
-    margin-top: 30px;
+#pick-fighter {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 250px;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 8px 5px 8px 5px;
+  border-radius: 25px;
+  font-size: 30px;
+  font-family: "Saiyan Sans";
+  letter-spacing: 1px;
+  color: #f6b93e;
+  text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000,
+    1.5px 1.5px #000, -1.5px -1.5px #000, -1.5px 1.5px #000, 1.5px -1.5px #000;
+}
+
+#fighterSelect {
+  /* outline: red 10px solid; */
+  padding: 5px;
+  border: black 2px solid;
+  font-family: "Saiyan Sans";
+  font-size: 30px;
+  letter-spacing: 1px;
+  margin: 13px auto 12px auto;
+  background-image: linear-gradient(
+    to top left,
+    #fcd981,
+    #f6b93e 50%,
+    transparent
+  );
+
 }
 
 .fighter-list {
-    display: block;
-    width: 220px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 30px;
-    margin-top: 20px;
-    text-align: center;
+  display: block;
+  width: 220px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+  margin-top: 20px;
+  text-align: center;
+  font-size: 30px;
+  letter-spacing: 1px;
+  font-family: "Saiyan Sans";
+  /* outline: pink 10px solid; */
 }
 
 #random-opponent {
-    height: 25px;
-    margin-bottom: 40px;
-    margin-top: 40px;
-    padding: 10px 20px 25px 20px;
-    border-radius: 20px;
+  height: 25px;
+  margin-bottom: 40px;
+  margin-top: 40px;
+  padding: 5px 20px 30px 20px;
+  border-radius: 20px;
+  background-image: linear-gradient(
+    to top left,
+    #fcd981,
+    #f6b93e 50%,
+    transparent
+  );
+  box-shadow: inset 2px 2px 3px rgba(241, 255, 244, 0.6),
+    inset -2px -2px 3px #ae3c01;
+}
+
+#random-opponent:hover {
+  background-color: #e77407;
+}
+
+#random-opponent:active {
+  box-shadow: inset -2px -2px 3px rgb(255 255 255 / 0.6),
+    inset 2px 2px 3px rgb(0 0 0 / 0.6);
+}
+
+.infoDump {
+  background-color: rgb(41, 41, 41);
+  padding: 1px 0px 5px 20px;
+  border-radius: 25px;
+  height: auto;
+}
+
+.white {
+  color: #f4f4ef;
+  margin: 15px 0px 0px 0px;
+  letter-spacing: 1px;
+  font-family: "Saiyan Sans";
+  text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000,
+    1.5px 1.5px #000, -1.5px -1.5px #000, -1.5px 1.5px #000, 1.5px -1.5px #000;
+}
+
+.yellow {
+  color: #f3b436;
+  margin: 0px;
+  letter-spacing: 1px;
+  font-family: "Saiyan Sans";
+  text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000,
+    1.5px 1.5px #000, -1.5px -1.5px #000, -1.5px 1.5px #000, 1.5px -1.5px #000;
+}
+
+#fighter-name {
+  font-size: 40px;
+  padding-bottom: 0px;
+}
+
+#planet-box {
+  outline: 10px red solid;
+}
+
+#planet {
+  display: block;
+  width: 220px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  text-align: center;
+  font-size: 30px;
+  letter-spacing: 1px;
+  font-family: "Saiyan Sans";
+  height: 25px;
+  padding: 5px 20px 30px 20px;
+  border-radius: 20px;
+  background-image: linear-gradient(
+    to top left,
+    #fcd981,
+    #f6b93e 50%,
+    transparent
+  );
+  box-shadow: inset 2px 2px 3px rgba(241, 255, 244, 0.6),
+    inset -2px -2px 3px #ae3c01;
+}
+
+#planet:hover {
+  background-color: #e77407;
+}
+
+#planet:active {
+  box-shadow: inset -2px -2px 3px rgb(255 255 255 / 0.6),
+    inset 2px 2px 3px rgb(0 0 0 / 0.6);
+}
+
+#planet-name {
+  font-size: 30px;
+  letter-spacing: 1px;
+  font-family: "Saiyan Sans";
+  margin: 0 auto 0 auto;
+  display: block;
 }
