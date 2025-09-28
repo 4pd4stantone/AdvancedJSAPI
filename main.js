@@ -21,11 +21,11 @@ async function getFighterNames() {
   changePlanet();
   const fighterItems = await getDBZData();
   
-  console.log(fighterItems[0].ki);
+  // console.log(fighterItems[0].ki);
   //2. (15%) Create user interaction with the API through a search feature, paginated gallery, or similar. This feature should use GET requests to retrieve associated data.
   fighterItems.forEach((fighter) => {
     if (fighter.ki == "0" || fighter.ki == "unknown") {
-      return console.log(fighter.ki);
+      // return console.log(fighter.ki);
     } else {
       const options = document.createElement("option");
       fighterSelect.appendChild(options);
@@ -40,28 +40,34 @@ async function getFighterNames() {
 getFighterNames();
 
 fighterSelect.addEventListener("change", getFighterImg);
+fighterSelect.addEventListener("change", updatedFighterKi);
 
 //3. (15%) Make use of Promises and async/await syntax as appropriate.
+
+
+ 
 
 async function getFighterImg() {
   const fighterImg = await getDBZData();
   // console.log(fighterImg);
   let fighterId = fighterSelect.value;
-  console.log(fighterImg);
+  // console.log(fighterImg);
+  let fighterKi = null;
 
   fighterImg.forEach((character) => {
     if (character.name === fighterId) {
       // removing the flipping of images using the style transform css attribute
       fighter.style.transform = "";
       fighter.src = character.image;
-      console.log(character)
+      // console.log(character)
       let name = character.name;
       let race = character.race;
       let gender = character.gender;
       let ki = character.ki; // need to remove dots and turn into a number
+      fighterKi = ki;
       let maxKi = character.maxKi;
-      infoDump1.innerHTML = `<h1 class="white" id="fighter-name">${name}</h1><h2 class="yellow">${race} - ${gender}</h2><h2 class="white">KI: ${ki}</h2><h2 class="white">maxKi: ${maxKi}</h2>`;
-
+      infoDump1.innerHTML = `<h1 class="white" id="fighter-name">${name}</h1><h2 class="yellow">${race} - ${gender}</h2><h2 class="white" id="fighter-ki">KI: ${ki}</h2><h2 class="white">maxKi: ${maxKi}</h2>`;
+       
       // array and forEach to flip some images to face opponent.
       let array = [
         3, 5, 9, 14, 15, 16, 19, 20, 22, 23, 25, 33, 40, 43, 63, 64, 65, 66, 69, 70,
@@ -74,6 +80,8 @@ async function getFighterImg() {
       });
     }
   });
+  
+  return fighterKi;
 }
 
 opponentBtn.addEventListener("click", getOpponentImg);
@@ -112,7 +120,7 @@ let i = 0
 async function changePlanet() {
   const planetImg = await getPlanet();
   const imgUrl = planetImg[i].image;
-  console.log(planetImg)
+  // console.log(planetImg)
   backgroundImg.style.backgroundImage = `url(${imgUrl})`;
   backgroundImg.style.backgroundSize = 'cover';
   backgroundImg.style.backgroundRepeat = 'no-repeat';
@@ -135,6 +143,25 @@ async function changePlanet() {
 }
 
 
+// Getting the curent fighter Ki
+let currentFighterKi = null;
+
+async function getFighterKi() {
+ currentFighterKi = await getFighterImg();
+return currentFighterKi;
+}
+
+
+async function updatedFighterKi() {
+  await getFighterKi();
+  console.log(currentFighterKi);
+  return currentFighterKi;
+}
+// to get the ki of the initial character, if new character selected the updatedFighterKi is updated. 
+updatedFighterKi()
+
+
+
 
 
 // (not an obligation) Enable user manipulation of data within the API through the use of POST, PUT, or PATCH requests. Ensure your chosen API supports this feature before beginning.
@@ -145,7 +172,7 @@ async function changePlanet() {
 
 //7. (10%) Ensure that the program runs without errors (comment out things that do not work, and explain your blockers - you can still receive partial credit).
 
-//8. (5%) Commit frequently to the git repository. So far 2 commits.
+//8. (5%) Commit frequently to the git repository. So far 6 commits.
 
 //9. (2%) Include a README file that contains a description of your application.
 
