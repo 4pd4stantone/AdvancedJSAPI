@@ -324,6 +324,7 @@ main {
     background: radial-gradient(closest-side, #ffffff, #a4aaff, #010fd1);
     position: relative;
     margin: 0px 0px 0px -50px;
+    opacity: 0;
     z-index: 1;
 }
 
@@ -334,6 +335,7 @@ main {
     background: radial-gradient(closest-side, #ffffff, #ffa4a4, #d10101);
     position: relative;
     margin: 0px 0px 0px 350px;
+    opacity: 0;
      z-index: 1;
 }
 
@@ -348,7 +350,22 @@ main {
   margin: 20px auto 0px auto;
 }
 
- 
+ @keyframes sphere {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1; 
+  }
+}
+ @keyframes noSphere {
+    0% {
+    opacity: 1; 
+  }
+ 100% {
+    opacity: 0;
+  }
+}
 @keyframes moveSphere {
   0% {
     transform: translateX(0); 
@@ -357,38 +374,50 @@ main {
     transform: translateX(500px); 
   }
 }
-@keyframes moveSphereBack {
+@keyframes moveSphereMiss {
   0% {
-    transform: translateX(500px); 
+    transform: translateX(0); 
   }
   100% {
-    transform: translateX(0px); 
+    transform: translateX(1000px); 
   }
 }
 
-#sphere.animated {
-  animation: moveSphere 2s forwards 0s,
-  moveSphereBack 2s forwards 2s; 
+
+#sphere.animated-hit {
+  animation: sphere 1s forwards, moveSphere 1s forwards, noSphere 0.8s ease-in-out forwards 0.8s;
 }
 
+#sphere.animated-miss {
+  animation: sphere 1s forwards, moveSphereMiss 1s forwards, noSphere 0.8s ease-in-out forwards 0.8s;
+}
+
+ @keyframes sphere2 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1; 
+  }
+}
+ @keyframes noSphere2 {
+    0% {
+    opacity: 1; 
+  }
+ 100% {
+    opacity: 0;
+  }
+}
 @keyframes moveSphere2 {
   0% {
-    transform: translateX(500); 
+    transform: translateX(0); 
   }
   100% {
-    transform: translateX(0px); 
-  }
-}
-@keyframes moveSphereBack2 {
-  0% {
-    transform: translateX(0px); 
-  }
-  100% {
-    transform: translateX(550px); 
+    transform: translateX(-500px); 
   }
 }
 
+
 #sphere2.animated {
-  animation: moveSphere 2s forwards 0s,
-  moveSphereBack 2s forwards 2s; 
+  animation: sphere2 1s forwards, moveSphere2 1s forwards, noSphere2 0.8s ease-in-out forwards 0.8s;
 }

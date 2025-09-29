@@ -16,6 +16,8 @@ const planetBtn = document.getElementById("planet");
 
 const planetName = document.getElementById("planet-name");
 
+const opponentHealth = document.getElementById("opponent-health")
+
 let gameStarted = false;
 
 async function getFighterNames() {
@@ -235,6 +237,7 @@ async function startGame () {
     attackBtn.disabled = false;
     }, 1000);
     
+
     
 
     
@@ -243,13 +246,37 @@ async function startGame () {
 let sphere = document.getElementById("sphere");
 sphere.addEventListener('click', attack)
 
+let opponentHealthPct = 100;  
+let fighterHealthPct = 100;
+let opponentNum = 1;
+
 function attack() {
-      sphere.classList.add('animated');
-      console.log('hi')
-      setTimeout(() => {sphere.classList.remove('animated')}, 4000)
+  if (opponentHealthPct > 0) {
+    if (Math.random() < 0.75) {
+    sphere.classList.add('animated-hit');
+    setTimeout(() => {sphere.classList.remove('animated-hit')}, 4000);
+    setTimeout(() => {
+        window.alert(`💥 You did some damage to your opponent!`);
+        const damagePct = 100 * powerDamage;         
+        opponentHealthPct = Math.max(0, opponentHealthPct - damagePct);
+        opponentHealth.style.width = opponentHealthPct + '%';
+        opponentHealth.textContent = opponentHealthPct + '%';
+        console.log(opponentHealthPct + '%');
+      }, 2000)
+    } else {
+      sphere.classList.add('animated-miss');
+      setTimeout(() => {sphere.classList.remove('animated-hit')}, 4000);
+      setTimeout(() => {
+        window.alert(`💥 You did some damage to your opponent!`);
+        const damagePct = 100 * powerDamage;         
+        opponentHealthPct = Math.max(0, opponentHealthPct - damagePct);
+        opponentHealth.style.width = opponentHealthPct + '%';
+        opponentHealth.textContent = opponentHealthPct + '%';
+        console.log(opponentHealthPct + '%');
+      }, 2000)
     }
-
-
+  }
+  }
 
 // (not an obligation) Enable user manipulation of data within the API through the use of POST, PUT, or PATCH requests. Ensure your chosen API supports this feature before beginning.
 
