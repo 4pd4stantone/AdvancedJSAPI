@@ -73,7 +73,6 @@ main {
 }
 
 #fighterSelect {
-  /* outline: red 10px solid; */
   padding: 5px;
   border: black 2px solid;
   font-family: "Saiyan Sans";
@@ -100,7 +99,6 @@ main {
   font-size: 30px;
   letter-spacing: 1px;
   font-family: "Saiyan Sans";
-  /* outline: pink 10px solid; */
 }
 
 #random-opponent {
@@ -159,7 +157,7 @@ main {
 }
 
 #planet-box {
-  /* outline: 10px red solid; */
+  outline: 10px red solid;
 }
 
 #planet {
@@ -205,6 +203,6 @@ main {
   text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000,
     1.5px 1.5px #000, -1.5px -1.5px #000, -1.5px 1.5px #000, 1.5px -1.5px #000;
     width: 300px;
-    /* outline: 10px black solid; */
+    outline: 10px black solid;
     text-align: center;
 }

@@ -1,7 +1,6 @@
 //4. (3%) Organize your JavaScript code into at least three (3) different module files, and import functions and data across files as necessary.
-import { getDBZData} from "./opponent.js";
-import { getPlanet} from "./planet.js";
-
+import { getDBZData } from "./opponent.js";
+import { getPlanet } from "./planet.js";
 
 const fighterSelect = document.getElementById("fighterSelect");
 
@@ -20,7 +19,7 @@ const planetName = document.getElementById("planet-name");
 async function getFighterNames() {
   changePlanet();
   const fighterItems = await getDBZData();
-  
+
   // console.log(fighterItems[0].ki);
   //2. (15%) Create user interaction with the API through a search feature, paginated gallery, or similar. This feature should use GET requests to retrieve associated data.
   fighterItems.forEach((fighter) => {
@@ -34,18 +33,17 @@ async function getFighterNames() {
     }
   });
   getFighterImg();
-  
 }
 
 getFighterNames();
 
 fighterSelect.addEventListener("change", getFighterImg);
-fighterSelect.addEventListener("change", updatedFighterKi);
+fighterSelect.addEventListener("change", async () => {
+  powerDamage = await fighterPowerDamage();
+  console.log(powerDamage);
+});
 
 //3. (15%) Make use of Promises and async/await syntax as appropriate.
-
-
- 
 
 async function getFighterImg() {
   const fighterImg = await getDBZData();
@@ -67,11 +65,11 @@ async function getFighterImg() {
       fighterKi = ki;
       let maxKi = character.maxKi;
       infoDump1.innerHTML = `<h1 class="white" id="fighter-name">${name}</h1><h2 class="yellow">${race} - ${gender}</h2><h2 class="white" id="fighter-ki">KI: ${ki}</h2><h2 class="white">maxKi: ${maxKi}</h2>`;
-       
+
       // array and forEach to flip some images to face opponent.
       let array = [
-        3, 5, 9, 14, 15, 16, 19, 20, 22, 23, 25, 33, 40, 43, 63, 64, 65, 66, 69, 70,
-        71, 72, 73, 74, 75,
+        3, 5, 9, 14, 15, 16, 19, 20, 22, 23, 25, 33, 40, 43, 63, 64, 65, 66, 69,
+        70, 71, 72, 73, 74, 75,
       ];
       array.forEach((num) => {
         if (character.id === num) {
@@ -80,7 +78,7 @@ async function getFighterImg() {
       });
     }
   });
-  
+
   return fighterKi;
 }
 
@@ -89,11 +87,15 @@ opponentBtn.addEventListener("click", getOpponentImg);
 async function getOpponentImg() {
   const opponentImg = await getDBZData();
   let i = Math.floor(Math.random() * 47);
-  console.log(typeof i)
+  console.log(typeof i);
   console.log(opponentImg[i].name);
   let fighterId = fighterSelect.value;
-  console.log(fighterId)
-  if (opponentImg[i].ki == "0" || opponentImg[i].ki == "unknown" || fighterId == opponentImg[i].name) {
+  console.log(fighterId);
+  if (
+    opponentImg[i].ki == "0" ||
+    opponentImg[i].ki == "unknown" ||
+    fighterId == opponentImg[i].name
+  ) {
     getOpponentImg();
   } else {
     opponent.style.transform = "";
@@ -104,7 +106,7 @@ async function getOpponentImg() {
     let ki = opponentImg[i].ki; // need to remove dots and turn into a number
     let maxKi = opponentImg[i].maxKi;
     infoDump2.innerHTML = `<h1 class="white" id="fighter-name">${name}</h1><h2 class="yellow">${race} - ${gender}</h2><h2 class="white">KI: ${ki}</h2><h2 class="white">maxKi: ${maxKi}</h2>`;
-    let array = [0, 1, 17, 23, 35, 36, 37, 41, 47 ];
+    let array = [0, 1, 17, 23, 35, 36, 37, 41, 47];
     array.forEach((num) => {
       if (i == num) {
         opponent.style.transform = "scaleX(-1)";
@@ -113,55 +115,101 @@ async function getOpponentImg() {
   }
 }
 
-planetBtn.addEventListener('click', changePlanet);
+planetBtn.addEventListener("click", changePlanet);
 
-let i = 0
+let i = 0;
 
 async function changePlanet() {
   const planetImg = await getPlanet();
   const imgUrl = planetImg[i].image;
   // console.log(planetImg)
   backgroundImg.style.backgroundImage = `url(${imgUrl})`;
-  backgroundImg.style.backgroundSize = 'cover';
-  backgroundImg.style.backgroundRepeat = 'no-repeat';
-  backgroundImg.style.backgroundPosition = 'center';
+  backgroundImg.style.backgroundSize = "cover";
+  backgroundImg.style.backgroundRepeat = "no-repeat";
+  backgroundImg.style.backgroundPosition = "center";
   planetName.textContent = "";
   let namePlanet = planetImg[i].name;
   if (namePlanet == "Tierra") {
     planetName.textContent = `Earth`;
   } else {
-  planetName.textContent = `${namePlanet}`;
+    planetName.textContent = `${namePlanet}`;
   }
   if (i < 9) {
-    i+=1;
+    i += 1;
     return i;
   } else {
     i = 0;
     return i;
   }
-
 }
-
 
 // Getting the curent fighter Ki
 let currentFighterKi = null;
 
 async function getFighterKi() {
- currentFighterKi = await getFighterImg();
-return currentFighterKi;
-}
-
-
-async function updatedFighterKi() {
-  await getFighterKi();
-  console.log(currentFighterKi);
+  currentFighterKi = await getFighterImg();
   return currentFighterKi;
 }
-// to get the ki of the initial character, if new character selected the updatedFighterKi is updated. 
-updatedFighterKi()
+
+const unitDamage = {
+  hundreds: 0.01,
+  thousand: 0.05,
+  million: 0.1,
+  billion: 0.2,
+  trillion: 0.3,
+  quadrillion: 0.4,
+  quintillion: 0.5,
+  sextillion: 0.6,
+  septillion: 0.7,
+  googolplex: 0.8,
+};
+
+let powerDamage = null;
+
+async function fighterPowerDamage() {
+  let fighterKi = await getFighterKi();
+  let lowerCase = String(fighterKi).toLowerCase();
+  if (lowerCase.includes("googolplex")) {
+    powerDamage = 0.8;
+    return powerDamage;
+  } else if (lowerCase.includes("septillion")) {
+    powerDamage = 0.7;
+    return powerDamage;
+  } else if (lowerCase.includes("sextillion")) {
+    powerDamage = 0.6;
+    return powerDamage;
+  } else if (lowerCase.includes("quintillion")) {
+    powerDamage = 0.5;
+    return powerDamage;
+  } else if (lowerCase.includes("quadrillion")) {
+    powerDamage = 0.4;
+    return powerDamage;
+  } else if (lowerCase.includes("trillion")) {
+    powerDamage = 0.3;
+    return powerDamage;
+  } else if (lowerCase.includes("billion")) {
+    powerDamage = 0.2;
+    return powerDamage;
+  } else {
+      let rawKiNumb = Number(fighterKi.replaceAll(/[\s.,]/g, ""));
+      console.log(rawKiNumb);
+      if (rawKiNumb < 1000) {
+        powerDamage = 0.01;
+        return powerDamage;
+      } else if (rawKiNumb < 1000000) {
+        powerDamage = 0.05;
+        return powerDamage;
+      } else {
+        powerDamage = 0.1;
+        return powerDamage
+      }
+    }
+  }
 
 
-
+// to get the fighterPowerDamage of the initial character, if new character selected the fighterPowerDamage is updated via the eventlistener.
+powerDamage = await fighterPowerDamage();
+console.log(powerDamage)
 
 
 // (not an obligation) Enable user manipulation of data within the API through the use of POST, PUT, or PATCH requests. Ensure your chosen API supports this feature before beginning.
@@ -172,7 +220,7 @@ updatedFighterKi()
 
 //7. (10%) Ensure that the program runs without errors (comment out things that do not work, and explain your blockers - you can still receive partial credit).
 
-//8. (5%) Commit frequently to the git repository. So far 6 commits.
+//8. (5%) Commit frequently to the git repository. So far 7 commits.
 
 //9. (2%) Include a README file that contains a description of your application.
 
