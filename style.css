@@ -314,19 +314,7 @@ main {
 
 #Beam {
     height: 50px;
-    margin-top: 150px;
-    /* background-color: blue;
-    background-image: linear-gradient(
-    to top,
-    #5a7dfc,
-    #c5ecfd 50%,
-    transparent
-  );
-  background-image: linear-gradient(
-    to bottom,
-    #5a7dfc,
-    #c5ecfd 50%,
-    transparent */
+    margin-top: 80px;
 }
 
 #sphere {
@@ -335,7 +323,18 @@ main {
     border-radius: 50%;
     background: radial-gradient(closest-side, #ffffff, #a4aaff, #010fd1);
     position: relative;
-    margin: 0px 0px 0px -30px;
+    margin: 0px 0px 0px -50px;
+    z-index: 1;
+}
+
+#sphere2 {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, #ffffff, #ffa4a4, #d10101);
+    position: relative;
+    margin: 0px 0px 0px 350px;
+     z-index: 1;
 }
 
 .dballs {
@@ -350,3 +349,46 @@ main {
 }
 
  
+@keyframes moveSphere {
+  0% {
+    transform: translateX(0); 
+  }
+  100% {
+    transform: translateX(500px); 
+  }
+}
+@keyframes moveSphereBack {
+  0% {
+    transform: translateX(500px); 
+  }
+  100% {
+    transform: translateX(0px); 
+  }
+}
+
+#sphere.animated {
+  animation: moveSphere 2s forwards 0s,
+  moveSphereBack 2s forwards 2s; 
+}
+
+@keyframes moveSphere2 {
+  0% {
+    transform: translateX(500); 
+  }
+  100% {
+    transform: translateX(0px); 
+  }
+}
+@keyframes moveSphereBack2 {
+  0% {
+    transform: translateX(0px); 
+  }
+  100% {
+    transform: translateX(550px); 
+  }
+}
+
+#sphere2.animated {
+  animation: moveSphere 2s forwards 0s,
+  moveSphereBack 2s forwards 2s; 
+}
