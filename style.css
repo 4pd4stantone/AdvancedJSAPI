@@ -30,7 +30,7 @@
 main {
   display: flex;
   justify-content: center;
-  outline: red 10px solid;
+  /* outline: red 10px solid; */
 }
 
 .fighters {
@@ -50,7 +50,7 @@ main {
 }
 
 .outterbox {
-  outline: 10px orange solid;
+  /* outline: 10px orange solid; */
   width: 360px;
   height: 700px;
 }
@@ -228,32 +228,36 @@ main {
 
 .health-box {
   outline: 3px black solid;
-  height: 10px;
+  height: 15px;
   background-color: black;
   margin: 10px 0 10px 0;
 }
 
 #fighter-health {
   background-color: green;
-  height: 10px;
-  width: 100%;
+  height: 15px;
+  width: 100%; 
+  color: white;
+  font-size: 14px;
 }
 
 #opponent-health {
   background-color: green;
-  height: 10px;
+  height: 15px;
   width: 100%;
+  color: white;
+  font-size: 14px;
 }
 
 #left-box {
-  outline: red 10px solid;
+  /* outline: red 10px solid; */
   margin-left: 0px;
   width: 230px;
 }
 
 #right-box {
   width: 230px;
-  outline: red 10px solid;
+  /* outline: red 10px solid; */
 }
 
 .senzu-bean {
@@ -307,3 +311,42 @@ main {
   box-shadow: inset -2px -2px 3px rgb(255 255 255 / 0.6),
     inset 2px 2px 3px rgb(0 0 0 / 0.6);
 }
+
+#Beam {
+    height: 50px;
+    margin-top: 150px;
+    /* background-color: blue;
+    background-image: linear-gradient(
+    to top,
+    #5a7dfc,
+    #c5ecfd 50%,
+    transparent
+  );
+  background-image: linear-gradient(
+    to bottom,
+    #5a7dfc,
+    #c5ecfd 50%,
+    transparent */
+}
+
+#sphere {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, #ffffff, #a4aaff, #010fd1);
+    position: relative;
+    margin: 0px 0px 0px -30px;
+}
+
+.dballs {
+    width: 75px;
+    background: transparent;
+  border: none;
+  /* outline: red 10px solid;   */
+  display: block;
+  align-self: center;
+ 
+  margin: 20px auto 0px auto;
+}
+
+ 

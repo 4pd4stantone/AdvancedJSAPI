@@ -16,6 +16,8 @@ const planetBtn = document.getElementById("planet");
 
 const planetName = document.getElementById("planet-name");
 
+let gameStarted = false;
+
 async function getFighterNames() {
   changePlanet();
   const fighterItems = await getDBZData();
@@ -46,6 +48,7 @@ fighterSelect.addEventListener("change", async () => {
 //3. (15%) Make use of Promises and async/await syntax as appropriate.
 
 async function getFighterImg() {
+  if (gameStarted) return; 
   const fighterImg = await getDBZData();
   // console.log(fighterImg);
   let fighterId = fighterSelect.value;
@@ -83,8 +86,10 @@ async function getFighterImg() {
 }
 
 opponentBtn.addEventListener("click", getOpponentImg);
+opponentBtn.addEventListener("click", startGame);
 
 async function getOpponentImg() {
+  if (gameStarted) return; 
   const opponentImg = await getDBZData();
   let i = Math.floor(Math.random() * 47);
   console.log(typeof i);
@@ -120,6 +125,7 @@ planetBtn.addEventListener("click", changePlanet);
 let i = 0;
 
 async function changePlanet() {
+  if (gameStarted) return; 
   const planetImg = await getPlanet();
   const imgUrl = planetImg[i].image;
   // console.log(planetImg)
@@ -211,6 +217,35 @@ async function fighterPowerDamage() {
 powerDamage = await fighterPowerDamage();
 console.log(powerDamage)
 
+let attackBtn = document.getElementById('attack');
+attackBtn.addEventListener('click', attack)
+let transformationBtn = document.getElementById('transformation');
+transformationBtn.disabled = true;
+attackBtn.disabled = true;
+
+async function startGame () {
+    gameStarted = true;
+    fighterSelect.disabled = true;
+    planetBtn.disabled = true;
+    opponentBtn.disabled = true;
+    
+    let fighterId = fighterSelect.value;
+    setTimeout(() => {
+    window.alert(`${fighterId}!!! Defeat 7 enemies to get all 7 dragonballs to save the world!!! \n Use the attack button to defeat your enemies!!! \n You have 3 senzo beans to get your health points back to 100%, use them wisely! \n After you defeat an enemy you also have the option to go through a transformation to level up your powers if available. \n Good Luck!`);
+    attackBtn.disabled = false;
+    }, 1000);
+    
+    
+
+    
+}
+
+function attack() {
+
+
+    }
+
+
 
 // (not an obligation) Enable user manipulation of data within the API through the use of POST, PUT, or PATCH requests. Ensure your chosen API supports this feature before beginning.
 
@@ -220,7 +255,7 @@ console.log(powerDamage)
 
 //7. (10%) Ensure that the program runs without errors (comment out things that do not work, and explain your blockers - you can still receive partial credit).
 
-//8. (5%) Commit frequently to the git repository. So far 8 commits.
+//8. (5%) Commit frequently to the git repository. So far 9 commits.
 
 //9. (2%) Include a README file that contains a description of your application.
 
