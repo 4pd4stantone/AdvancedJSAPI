@@ -13,9 +13,31 @@
     <header>
     </header>
     <main>
+        <div id="left-box">
+            <button class="bean-btn" id="bean1">
+                <img src="./bean2.png" alt="Senzu Bean" class="senzu-bean" >
+            </button>
+            <button class="bean-btn">
+                <img src="./bean2.png" alt="Senzu Bean" class="senzu-bean">
+            </button>
+            <button class="bean-btn">
+                <img src="./bean2.png" alt="Senzu Bean" class="senzu-bean">
+            </button>
+            <button class="left-btns">
+                Attack
+            </button>
+            <button class="left-btns">
+                Transformation
+            </button>
+        </div>
         <div class="outterbox">
             <h2 id="pick-fighter">Pick Your Fighter</h2>
             <select name="fighterSelect" id="fighterSelect" class="fighter-list"></select>
+            <div class="health-box">
+                <div id="fighter-health">
+
+                </div>
+            </div>
             <div class="fighters">
                 <img src="" alt="" id="fighter">
             </div>
@@ -24,21 +46,34 @@
         </div>
         <div class="outterbox" >
             <div id="planet-box" >
+                <h2 id="pick-planet">Pick the Planet</h2>
                 <div >
                     <button id="planet">Planet</button>
                 </div>
                 <div>
-                    <h1 id="planet-name">Earth</h1>
+                    <h1 id="planet-name"></h1>
                 </div>
+            </div>
+            <div>
+                
             </div>
         </div>
         <div class="outterbox">
-            <button id="random-opponent" class="fighter-list">Opponent</button>
+            <button id="random-opponent" class="fighter-list">Start Game</button>
+            <div class="health-box">
+                <div id="opponent-health">
+                </div>
+            </div>
             <div class="fighters">
                 <img src="./opponent.png" alt="" id="opponent">
             </div>
             <div id="infoDump2" class="infoDump">
                 <h1 class="white" id="fighter-name">Name: ?</h1><h2 class="yellow">Race: ? - Gender: ?</h2><h2 class="white">KI: ?</h2><h2 class="white">maxKi: ?</h2>
+            </div>
+        </div>
+        <div id="right-box">
+            <div>
+
             </div>
         </div>
     </main>

@@ -30,6 +30,7 @@
 main {
   display: flex;
   justify-content: center;
+  outline: red 10px solid;
 }
 
 .fighters {
@@ -49,7 +50,7 @@ main {
 }
 
 .outterbox {
-  /* outline: 10px orange solid; */
+  outline: 10px orange solid;
   width: 360px;
   height: 700px;
 }
@@ -72,20 +73,37 @@ main {
     1.5px 1.5px #000, -1.5px -1.5px #000, -1.5px 1.5px #000, 1.5px -1.5px #000;
 }
 
+#pick-planet {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 250px;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0px 5px 0px 5px;
+  border-radius: 25px;
+  font-size: 30px;
+  font-family: "Saiyan Sans";
+  letter-spacing: 1px;
+  color: #f6b93e;
+  text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000,
+    1.5px 1.5px #000, -1.5px -1.5px #000, -1.5px 1.5px #000, 1.5px -1.5px #000;
+}
+
 #fighterSelect {
   padding: 5px;
   border: black 2px solid;
   font-family: "Saiyan Sans";
   font-size: 30px;
   letter-spacing: 1px;
-  margin: 13px auto 12px auto;
+  margin: 13px auto 18px auto;
   background-image: linear-gradient(
     to top left,
     #fcd981,
     #f6b93e 50%,
     transparent
   );
-
 }
 
 .fighter-list {
@@ -103,7 +121,7 @@ main {
 
 #random-opponent {
   height: 25px;
-  margin-bottom: 40px;
+  margin-bottom: 45px;
   margin-top: 40px;
   padding: 5px 20px 30px 20px;
   border-radius: 20px;
@@ -119,6 +137,7 @@ main {
 
 #random-opponent:hover {
   background-color: #e77407;
+  cursor: pointer;
 }
 
 #random-opponent:active {
@@ -156,16 +175,15 @@ main {
   padding-bottom: 0px;
 }
 
-#planet-box {
-  outline: 10px red solid;
-}
+/* #planet-box {
+  /* outline: 10px red solid;} */
 
 #planet {
   display: block;
   width: 220px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
   margin-top: 20px;
   text-align: center;
   font-size: 30px;
@@ -186,6 +204,7 @@ main {
 
 #planet:hover {
   background-color: #e77407;
+  cursor: pointer;
 }
 
 #planet:active {
@@ -197,12 +216,94 @@ main {
   font-size: 40px;
   letter-spacing: 1px;
   font-family: "Saiyan Sans";
-  margin: 10px auto 0px auto;
+  margin: 20px auto 0px auto;
   display: block;
   color: #f6b93e;
   text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000,
     1.5px 1.5px #000, -1.5px -1.5px #000, -1.5px 1.5px #000, 1.5px -1.5px #000;
-    width: 300px;
-    outline: 10px black solid;
-    text-align: center;
+  width: 300px;
+  /* outline: 10px black solid; */
+  text-align: center;
+}
+
+.health-box {
+  outline: 3px black solid;
+  height: 10px;
+  background-color: black;
+  margin: 10px 0 10px 0;
+}
+
+#fighter-health {
+  background-color: green;
+  height: 10px;
+  width: 100%;
+}
+
+#opponent-health {
+  background-color: green;
+  height: 10px;
+  width: 100%;
+}
+
+#left-box {
+  outline: red 10px solid;
+  margin-left: 0px;
+  width: 230px;
+}
+
+#right-box {
+  width: 230px;
+  outline: red 10px solid;
+}
+
+.senzu-bean {
+  height: 60px;
+}
+
+.senzu-bean:hover {
+  cursor: pointer;
+}
+
+.bean-btn {
+  background: transparent;
+  border: none;
+  /* outline: red 10px solid;   */
+  display: block;
+  align-self: center;
+  width: 60px;
+  margin: 0px auto 0px auto;
+}
+
+#bean1 {
+  margin-top: 150px;
+}
+
+.left-btns {
+  display: block;
+  font-family: "Saiyan Sans";
+  font-size: 30px;
+    letter-spacing: 1px;
+  height: 25px;
+  width: 200px;
+  margin: 40px auto 45px auto;
+  padding: 5px 20px 30px 20px;
+  border-radius: 20px;
+  background-image: linear-gradient(
+    to top left,
+    #fcd981,
+    #f6b93e 50%,
+    transparent
+  );
+  box-shadow: inset 2px 2px 3px rgba(241, 255, 244, 0.6),
+    inset -2px -2px 3px #ae3c01;
+}
+
+.left-btns:hover {
+  background-color: #e77407;
+  cursor: pointer;
+}
+
+.left-btns:active {
+  box-shadow: inset -2px -2px 3px rgb(255 255 255 / 0.6),
+    inset 2px 2px 3px rgb(0 0 0 / 0.6);
 }
