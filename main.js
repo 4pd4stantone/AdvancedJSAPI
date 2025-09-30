@@ -16,7 +16,9 @@ const planetBtn = document.getElementById("planet");
 
 const planetName = document.getElementById("planet-name");
 
-const opponentHealth = document.getElementById("opponent-health")
+const opponentHealth = document.getElementById("opponent-health");
+
+const fighterHealth = document.getElementById("fighter-health");
 
 let gameStarted = false;
 
@@ -50,7 +52,7 @@ fighterSelect.addEventListener("change", async () => {
 //3. (15%) Make use of Promises and async/await syntax as appropriate.
 
 async function getFighterImg() {
-  if (gameStarted) return; 
+  if (gameStarted) return;
   const fighterImg = await getDBZData();
   // console.log(fighterImg);
   let fighterId = fighterSelect.value;
@@ -91,13 +93,14 @@ opponentBtn.addEventListener("click", getOpponentImg);
 opponentBtn.addEventListener("click", startGame);
 
 async function getOpponentImg() {
-  if (gameStarted) return; 
+  if (gameStarted) return;
   const opponentImg = await getDBZData();
   let i = Math.floor(Math.random() * 47);
   console.log(typeof i);
   console.log(opponentImg[i].name);
   let fighterId = fighterSelect.value;
   console.log(fighterId);
+  let opponentKi = null;
   if (
     opponentImg[i].ki == "0" ||
     opponentImg[i].ki == "unknown" ||
@@ -110,9 +113,9 @@ async function getOpponentImg() {
     let name = opponentImg[i].name;
     let race = opponentImg[i].race;
     let gender = opponentImg[i].gender;
-    let ki = opponentImg[i].ki; // need to remove dots and turn into a number
+    opponentKi = opponentImg[i].ki;
     let maxKi = opponentImg[i].maxKi;
-    infoDump2.innerHTML = `<h1 class="white" id="fighter-name">${name}</h1><h2 class="yellow">${race} - ${gender}</h2><h2 class="white">KI: ${ki}</h2><h2 class="white">maxKi: ${maxKi}</h2>`;
+    infoDump2.innerHTML = `<h1 class="white" id="fighter-name">${name}</h1><h2 class="yellow">${race} - ${gender}</h2><h2 class="white">KI: ${opponentKi}</h2><h2 class="white">maxKi: ${maxKi}</h2>`;
     let array = [0, 1, 17, 23, 35, 36, 37, 41, 47];
     array.forEach((num) => {
       if (i == num) {
@@ -120,6 +123,7 @@ async function getOpponentImg() {
       }
     });
   }
+  return opponentKi;
 }
 
 planetBtn.addEventListener("click", changePlanet);
@@ -127,7 +131,7 @@ planetBtn.addEventListener("click", changePlanet);
 let i = 0;
 
 async function changePlanet() {
-  if (gameStarted) return; 
+  if (gameStarted) return;
   const planetImg = await getPlanet();
   const imgUrl = planetImg[i].image;
   // console.log(planetImg)
@@ -157,6 +161,13 @@ let currentFighterKi = null;
 async function getFighterKi() {
   currentFighterKi = await getFighterImg();
   return currentFighterKi;
+}
+
+let currentOpponentKi = null;
+
+async function getOpponentKi() {
+  currentOpponentKi = await getOpponentImg();
+  return currentOpponentKi;
 }
 
 // const unitDamage = {
@@ -199,84 +210,162 @@ async function fighterPowerDamage() {
     powerDamage = 0.2;
     return powerDamage;
   } else {
-      let rawKiNumb = Number(fighterKi.replaceAll(/[\s.,]/g, ""));
+    let rawKiNumb = Number(fighterKi.replaceAll(/[\s.,]/g, ""));
+    console.log(rawKiNumb);
+    if (rawKiNumb < 1000) {
+      powerDamage = 0.01;
+      return powerDamage;
+    } else if (rawKiNumb < 1000000) {
+      powerDamage = 0.05;
+      return powerDamage;
+    } else {
+      powerDamage = 0.1;
+      return powerDamage;
+    }
+  }
+}
+
+powerDamage = await fighterPowerDamage();
+console.log(powerDamage);
+
+let oPowerDamage = null;
+
+async function opponentPowerDamage() {
+  let opponentKi = await getOpponentKi();
+  let lowerCase = String(opponentKi).toLowerCase();
+  if (lowerCase.includes("googolplex")) {
+    oPowerDamage = 0.8;
+    return oPowerDamage;
+  } else if (lowerCase.includes("septillion")) {
+    oPowerDamage = 0.7;
+    return oPowerDamage;
+  } else if (lowerCase.includes("sextillion")) {
+    oPowerDamage = 0.6;
+    return oPowerDamage;
+  } else if (lowerCase.includes("quintillion")) {
+    oPowerDamage = 0.5;
+    return oPowerDamage;
+  } else if (lowerCase.includes("quadrillion")) {
+    oPowerDamage = 0.4;
+    return oPowerDamage;
+  } else if (lowerCase.includes("trillion")) {
+    oPowerDamage = 0.3;
+    return oPowerDamage;
+  } else if (lowerCase.includes("billion")) {
+    oPowerDamage = 0.2;
+    return oPowerDamage;
+  } else {
+    if (opponentKi == null || opponentKi == NaN) {
+      console.log(opponentKi)
+      startGame();
+    } else {
+      let rawKiNumb = Number(opponentKi.replaceAll(/[\s.,]/g, ""));
       console.log(rawKiNumb);
       if (rawKiNumb < 1000) {
-        powerDamage = 0.01;
-        return powerDamage;
+        oPowerDamage = 0.01;
+        return oPowerDamage;
       } else if (rawKiNumb < 1000000) {
-        powerDamage = 0.05;
-        return powerDamage;
+        oPowerDamage = 0.05;
+        return oPowerDamage;
       } else {
-        powerDamage = 0.1;
-        return powerDamage
+        oPowerDamage = 0.1;
+        return oPowerDamage;
       }
     }
   }
-
+}
 
 // to get the fighterPowerDamage of the initial character, if new character selected the fighterPowerDamage is updated via the eventlistener.
-powerDamage = await fighterPowerDamage();
-console.log(powerDamage)
 
-let attackBtn = document.getElementById('attack');
-attackBtn.addEventListener('click', attack)
-let transformationBtn = document.getElementById('transformation');
+let attackBtn = document.getElementById("attack");
+attackBtn.addEventListener("click", attack);
+let transformationBtn = document.getElementById("transformation");
 transformationBtn.disabled = true;
 attackBtn.disabled = true;
 
-async function startGame () {
-    gameStarted = true;
-    fighterSelect.disabled = true;
-    planetBtn.disabled = true;
-    opponentBtn.disabled = true;
-    
-    let fighterId = fighterSelect.value;
-    setTimeout(() => {
-    window.alert(`${fighterId}!!! Defeat 7 enemies to get all 7 dragonballs to save the world!!! \n Use the attack button to defeat your enemies!!! \n You have 3 senzo beans to get your health points back to 100%, use them wisely! \n After you defeat an enemy you also have the option to go through a transformation to level up your powers if available. \n Good Luck!`);
+async function startGame() {
+  oPowerDamage = await opponentPowerDamage();
+  console.log(oPowerDamage);
+  gameStarted = true;
+  fighterSelect.disabled = true;
+  planetBtn.disabled = true;
+  opponentBtn.disabled = true;
+
+  let fighterId = fighterSelect.value;
+  setTimeout(() => {
+    window.alert(
+      `${fighterId}!!! Defeat 7 enemies to get all 7 dragonballs and save the world!!! \n Use the attack button to defeat your enemies!!! \n You have 3 senzo beans to get your health points back to 100%, use them wisely! \n Level up your powers with a transformation whenever you can! \n Good Luck!`
+    );
     attackBtn.disabled = false;
-    }, 1000);
-    
-
-    
-
-    
+  }, 1000);
 }
 
 let sphere = document.getElementById("sphere");
-sphere.addEventListener('click', attack)
+let sphere2 = document.getElementById("sphere2");
+sphere.addEventListener("click", attack);
 
-let opponentHealthPct = 100;  
+let opponentHealthPct = 100;
 let fighterHealthPct = 100;
 let opponentNum = 1;
 
-function attack() {
+async function attack() {
+  attackBtn.disabled = true;
   if (opponentHealthPct > 0) {
-    if (Math.random() < 0.75) {
-    sphere.classList.add('animated-hit');
-    setTimeout(() => {sphere.classList.remove('animated-hit')}, 4000);
-    setTimeout(() => {
-        window.alert(`💥 You did some damage to your opponent!`);
-        const damagePct = 100 * powerDamage;         
-        opponentHealthPct = Math.max(0, opponentHealthPct - damagePct);
-        opponentHealth.style.width = opponentHealthPct + '%';
-        opponentHealth.textContent = opponentHealthPct + '%';
-        console.log(opponentHealthPct + '%');
-      }, 2000)
-    } else {
-      sphere.classList.add('animated-miss');
-      setTimeout(() => {sphere.classList.remove('animated-hit')}, 4000);
+    if (Math.random() < 0.66) {
+      sphere.classList.add("animated-hit");
+      setTimeout(() => {
+        sphere.classList.remove("animated-hit");
+      }, 2000);
       setTimeout(() => {
         window.alert(`💥 You did some damage to your opponent!`);
-        const damagePct = 100 * powerDamage;         
+        const damagePct = 100 * powerDamage;
         opponentHealthPct = Math.max(0, opponentHealthPct - damagePct);
-        opponentHealth.style.width = opponentHealthPct + '%';
-        opponentHealth.textContent = opponentHealthPct + '%';
-        console.log(opponentHealthPct + '%');
-      }, 2000)
+        if (opponentHealthPct === 0) {
+          getOpponentImg();
+          
+        }
+        opponentHealth.style.width = opponentHealthPct + "%";
+        opponentHealth.textContent = opponentHealthPct + "%";
+        console.log(opponentHealthPct + "%");
+      }, 2000);
+    } else {
+      sphere.classList.add("animated-miss");
+      setTimeout(() => {
+        sphere.classList.remove("animated-miss");
+      }, 2000);
+      setTimeout(() => {
+        window.alert(`You missed!`);
+        if (Math.random() < 0.75) {
+          sphere2.classList.add("o-animated-hit");
+          setTimeout(() => {
+            sphere2.classList.remove("o-animated-hit");
+          }, 2000);
+          setTimeout(() => {
+            window.alert(`💥 Your opponent caused you some damage!`);
+            const damagePct = 100 * oPowerDamage;
+            fighterHealthPct = Math.max(0, fighterHealthPct - damagePct);
+            fighterHealth.style.width = fighterHealthPct + "%";
+            fighterHealth.textContent = fighterHealthPct + "%";
+            console.log(fighterHealthPct + "%");
+          }, 2000);
+        } else {
+          sphere2.classList.add("o-animated-miss");
+          setTimeout(() => {
+            sphere2.classList.remove("o-animated-miss");
+          }, 2000);
+          setTimeout(() => {
+            window.alert(`You got lucky! Your opponent missed!`);
+          }, 2000);
+        }
+      }, 2000);
     }
+  } else {
+    
   }
-  }
+  setTimeout(() => {
+    attackBtn.disabled = false;
+  }, 4000);
+}
 
 // (not an obligation) Enable user manipulation of data within the API through the use of POST, PUT, or PATCH requests. Ensure your chosen API supports this feature before beginning.
 

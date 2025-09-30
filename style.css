@@ -379,7 +379,7 @@ main {
     transform: translateX(0); 
   }
   100% {
-    transform: translateX(1000px); 
+    transform: translateX(800px); 
   }
 }
 
@@ -416,8 +416,19 @@ main {
     transform: translateX(-500px); 
   }
 }
+@keyframes moveSphere2Miss {
+  0% {
+    transform: translateX(0); 
+  }
+  100% {
+    transform: translateX(-800px); 
+  }
+}
 
-
-#sphere2.animated {
+#sphere2.o-animated-hit {
   animation: sphere2 1s forwards, moveSphere2 1s forwards, noSphere2 0.8s ease-in-out forwards 0.8s;
+}
+
+#sphere2.o-animated-miss {
+  animation: sphere2 1s forwards, moveSphere2Miss 1s forwards, noSphere2 0.8s ease-in-out forwards 0.8s;
 }
