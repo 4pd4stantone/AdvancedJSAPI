@@ -1,4 +1,4 @@
-export {getDBZData};
+export {getDBZData, getTransformationData};
 
 async function getDBZData() {
   const response = await fetch(
@@ -10,6 +10,17 @@ async function getDBZData() {
 }
 
 getDBZData()
+
+async function getTransformationData() {
+  const response = await fetch(
+    "https://dragonball-api.com/api/characters/"
+  );
+  const transformData = await response.json();
+  const transformItems = transformData.items;
+  return transformItems
+}
+
+getTransformationData()
 
 
 
