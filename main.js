@@ -256,7 +256,7 @@ async function opponentPowerDamage() {
     return oPowerDamage;
   } else {
     if (opponentKi == null || opponentKi == NaN) {
-      console.log(opponentKi)
+      console.log(opponentKi);
       startGame();
     } else {
       let rawKiNumb = Number(opponentKi.replaceAll(/[\s.,]/g, ""));
@@ -283,6 +283,7 @@ let transformationBtn = document.getElementById("transformation");
 transformationBtn.disabled = true;
 attackBtn.disabled = true;
 
+
 async function startGame() {
   oPowerDamage = await opponentPowerDamage();
   console.log(oPowerDamage);
@@ -308,12 +309,10 @@ let opponentHealthPct = 100;
 let fighterHealthPct = 100;
 let opponentNum = 1;
 
-
-
 async function attack() {
   attackBtn.disabled = true;
   if (opponentHealthPct > 0) {
-    if (Math.random() < 1) {
+    if (Math.random() < 0.1) {
       sphere.classList.add("animated-hit");
       setTimeout(() => {
         sphere.classList.remove("animated-hit");
@@ -327,9 +326,9 @@ async function attack() {
           opponentPowerDamage();
           opponentHealthPct = 100;
           opponentNum++;
-            for (let i = 1; i < opponentNum; i++) {
-             document.getElementById("ball" + i).src = `ball${i}.png`
-            }
+          for (let i = 1; i < opponentNum; i++) {
+            document.getElementById("ball" + i).src = `ball${i}.png`;
+          }
         }
         opponentHealth.style.width = opponentHealthPct + "%";
         opponentHealth.textContent = opponentHealthPct + "%";
@@ -342,7 +341,7 @@ async function attack() {
       }, 2000);
       setTimeout(() => {
         window.alert(`You missed!`);
-        if (Math.random() < 0.75) {
+        if (Math.random() < 1) {
           sphere2.classList.add("o-animated-hit");
           setTimeout(() => {
             sphere2.classList.remove("o-animated-hit");
@@ -353,7 +352,7 @@ async function attack() {
             fighterHealthPct = Math.max(0, fighterHealthPct - damagePct);
             if (fighterHealthPct === 0) {
               window.alert(`You lost!!!`);
-        }
+            }
             fighterHealth.style.width = fighterHealthPct + "%";
             fighterHealth.textContent = fighterHealthPct + "%";
             console.log(fighterHealthPct + "%");
@@ -370,12 +369,52 @@ async function attack() {
       }, 2000);
     }
   } else {
-    
   }
   setTimeout(() => {
     attackBtn.disabled = false;
   }, 4000);
 }
+
+const bean1 = document.getElementById("bean1");
+const bean2 = document.getElementById("bean2");
+const bean3 = document.getElementById("bean3");
+
+
+
+
+bean1.addEventListener("click", () => {
+  if (fighterHealthPct < 100) {
+  fighterHealthPct = 100;
+  fighterHealth.style.width = fighterHealthPct + "%";
+  fighterHealth.textContent = fighterHealthPct + "%";
+  console.log(fighterHealthPct + "%");
+  bean1.src = "";
+  bean1.alt = "";
+  bean1.removeEventListener("click");
+  }
+});
+bean2.addEventListener("click", () => {
+   if (fighterHealthPct < 100) {
+  fighterHealthPct = 100;
+  fighterHealth.style.width = fighterHealthPct + "%";
+  fighterHealth.textContent = fighterHealthPct + "%";
+  console.log(fighterHealthPct + "%");
+  bean2.src = "";
+  bean2.alt = "";
+  bean2.removeEventListener("click");
+   }
+});
+bean3.addEventListener("click", () => {
+   if (fighterHealthPct < 100) {
+  fighterHealthPct = 100;
+  fighterHealth.style.width = fighterHealthPct + "%";
+  fighterHealth.textContent = fighterHealthPct + "%";
+  console.log(fighterHealthPct + "%");
+  bean3.src = "";
+  bean3.alt = "";
+  bean3.removeEventListener("click");
+   }
+});
 
 // (not an obligation) Enable user manipulation of data within the API through the use of POST, PUT, or PATCH requests. Ensure your chosen API supports this feature before beginning.
 
