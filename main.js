@@ -92,8 +92,8 @@ async function getFighterImg() {
 opponentBtn.addEventListener("click", getOpponentImg);
 opponentBtn.addEventListener("click", startGame);
 
-async function getOpponentImg() {
-  if (gameStarted) return;
+async function getOpponentImg(opponentHealthPct) {
+  if (gameStarted && opponentHealthPct > 0) return;
   const opponentImg = await getDBZData();
   let i = Math.floor(Math.random() * 47);
   console.log(typeof i);
@@ -308,10 +308,12 @@ let opponentHealthPct = 100;
 let fighterHealthPct = 100;
 let opponentNum = 1;
 
+
+
 async function attack() {
   attackBtn.disabled = true;
   if (opponentHealthPct > 0) {
-    if (Math.random() < 0.66) {
+    if (Math.random() < 1) {
       sphere.classList.add("animated-hit");
       setTimeout(() => {
         sphere.classList.remove("animated-hit");
@@ -320,9 +322,14 @@ async function attack() {
         window.alert(`💥 You did some damage to your opponent!`);
         const damagePct = 100 * powerDamage;
         opponentHealthPct = Math.max(0, opponentHealthPct - damagePct);
-        if (opponentHealthPct === 0) {
-          getOpponentImg();
-          
+        if (opponentHealthPct === 0 && opponentNum < 8) {
+          getOpponentImg(opponentHealthPct);
+          opponentPowerDamage();
+          opponentHealthPct = 100;
+          opponentNum++;
+            for (let i = 1; i < opponentNum; i++) {
+             document.getElementById("ball" + i).src = `ball${i}.png`
+            }
         }
         opponentHealth.style.width = opponentHealthPct + "%";
         opponentHealth.textContent = opponentHealthPct + "%";
@@ -344,6 +351,9 @@ async function attack() {
             window.alert(`💥 Your opponent caused you some damage!`);
             const damagePct = 100 * oPowerDamage;
             fighterHealthPct = Math.max(0, fighterHealthPct - damagePct);
+            if (fighterHealthPct === 0) {
+              window.alert(`You lost!!!`);
+        }
             fighterHealth.style.width = fighterHealthPct + "%";
             fighterHealth.textContent = fighterHealthPct + "%";
             console.log(fighterHealthPct + "%");
@@ -355,7 +365,7 @@ async function attack() {
           }, 2000);
           setTimeout(() => {
             window.alert(`You got lucky! Your opponent missed!`);
-          }, 2000);
+          }, 1000);
         }
       }, 2000);
     }
