@@ -1,4 +1,5 @@
 ## AdvancedJSAPI
+<img width="1673" height="796" alt="image" src="https://github.com/user-attachments/assets/9c8d01d4-714d-4faa-9433-71375a61a8fb" />
 
 ##Dragon Ball Z Arena — Browser Game
 
