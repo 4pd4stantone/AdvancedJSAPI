@@ -304,7 +304,7 @@ async function startGame() {
   `${fighterId}! Collect all 7 Dragon Balls by defeating 7 enemies to save the world.\n` +
   `Use the Attack button to fight.\n` +
   `You have 3 Senzu Beans; each restores your health to 100%, so use them wisely.\n` +
-  `Transform to boost your power whenever you can.\n` +
+  `Transform to boost your power whenever you can (Only 7 characters are able to use transformation).\n` +
   `Good luck!`
 );
     attackBtn.disabled = false;
@@ -315,6 +315,8 @@ let sphere = document.getElementById("sphere");
 let sphere2 = document.getElementById("sphere2");
 sphere.addEventListener("click", attack);
 
+let shenron = document.getElementById("shenron")
+
 let opponentHealthPct = 100;
 let fighterHealthPct = 100;
 let opponentNum = 1;
@@ -322,7 +324,7 @@ let opponentNum = 1;
 async function attack() {
   attackBtn.disabled = true;
   if (opponentHealthPct > 0) {
-    if (Math.random() < 0.99) {
+    if (Math.random() < 0.8) {
       sphere.classList.add("animated-hit");
       setTimeout(() => {
         sphere.classList.remove("animated-hit");
@@ -331,20 +333,28 @@ async function attack() {
         window.alert(`💥 You did some damage to your opponent!`);
         const damagePct = 100 * powerDamage;
         opponentHealthPct = Math.max(0, opponentHealthPct - damagePct);
-        if (opponentHealthPct === 0 && opponentNum < 8) {
+        if (opponentHealthPct === 0 && opponentNum < 7) {
           if (fighterName === "Goku" || fighterName === "Vegeta" || fighterName === "Piccolo" ||
             fighterName === "Freezer" ||fighterName === "Zarbon" ||fighterName === "Celula" ||
             fighterName === "Gohan") {
           transformationBtn.disabled = false;
           }
-          for (let i = 1; i < opponentNum; i++) {
-            document.getElementById("ball" + i).src = `ball${i}.png`;
+          for (let i = 0; i < opponentNum; i++) {
+            let dragonBall = i + 1;
+            document.getElementById("ball" + dragonBall).src = `ball${dragonBall}.png`;
           }
-          window.alert(`Here is you next opponent!`);
+          window.alert(`Good Job! You defeated your opponent! Here is you next opponent!`);
           getOpponentImg(opponentHealthPct);
           opponentPowerDamage();
           opponentHealthPct = 100;
           opponentNum++;
+        } else if (opponentHealthPct === 0 && opponentNum === 7) {
+          shenron.src = "shenron.png"
+          shenron.classList.add("dragon-grow")
+          setTimeout(() => {window.alert(`Congratulations! You collected all 7 Dragon Balls and saved the planet!`)},2000);
+          setTimeout(()=> {
+                location.reload();
+              }, 2000)
         }
         opponentHealth.style.width = opponentHealthPct + "%";
         opponentHealth.textContent = opponentHealthPct + "%";
@@ -357,7 +367,7 @@ async function attack() {
       }, 2000);
       setTimeout(() => {
         window.alert(`You missed!`);
-        if (Math.random() < 0.8) {
+        if (Math.random() < 0.7) {
           sphere2.classList.add("o-animated-hit");
           setTimeout(() => {
             sphere2.classList.remove("o-animated-hit");
@@ -368,6 +378,9 @@ async function attack() {
             fighterHealthPct = Math.max(0, fighterHealthPct - damagePct);
             if (fighterHealthPct === 0) {
               window.alert(`You lost!!!`);
+              setTimeout(()=> {
+                location.reload();
+              }, 1000)
             }
             fighterHealth.style.width = fighterHealthPct + "%";
             fighterHealth.textContent = fighterHealthPct + "%";
@@ -478,7 +491,7 @@ async function getTransformData() {
     powerDamage = 0.2;
     return powerDamage;
   } else {
-    let rawKiNumb = Number(fighterKi.replaceAll(/[\s.,]/g, ""));
+    let rawKiNumb = Number(newKi.replaceAll(/[\s.,]/g, ""));
     console.log(rawKiNumb);
     if (rawKiNumb < 1000) {
       powerDamage = 0.01;
@@ -486,8 +499,14 @@ async function getTransformData() {
     } else if (rawKiNumb < 1000000) {
       powerDamage = 0.05;
       return powerDamage;
-    } else {
+    } else if (rawKiNumb < 1000000000) {
       powerDamage = 0.1;
+      return powerDamage;
+    } else if (rawKiNumb < 1000000000000) {
+      powerDamage = 0.2;
+      return powerDamage;
+    } else {
+      powerDamage = 0.3;
       return powerDamage;
     }
     }
