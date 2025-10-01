@@ -5,6 +5,8 @@
 
 Pick a fighter, battle random opponents, collect all 7 Dragon Balls, and summon Shenron. This single-page web game fetches live character data from a public Dragon Ball API, with 10 different battle planets, and uses simple probabilities with KI-scaled damage, transformations, and Senzu Beans to create quick, replayable fights. 
 
+<img width="1897" height="941" alt="image" src="https://github.com/user-attachments/assets/b40e5c07-74ff-4adc-9276-c1ea8eecaac0" />
+
 ##Features
 
 Live data from API: Renders fighters and opponents with images, name, race, gender, KI, and max KI pulled at runtime.
@@ -22,6 +24,8 @@ Senzu Beans x3: Heal to 100% up to three times.
 Planets: The user can pick the background planet image.
 
 Responsive UI feedback: Attack and counterattack animations, hit or miss alerts, health bars, and basic input disabling to avoid race conditions.
+
+<img width="2616" height="1508" alt="image" src="https://github.com/user-attachments/assets/e338aaad-ad8a-43aa-8c75-131b5cd81329" />
 
 ##Stack
 
@@ -42,6 +46,10 @@ Public API: https://dragonball-api.com/api/characters/
 │
 ├─ images/                 # local assets like ball1.png..ball7.png, shenron.png
 └─ README.md
+
+
+<img width="1624" height="813" alt="image" src="https://github.com/user-attachments/assets/89a21461-e3d8-465b-a1e9-fc0bbe5d58b4" />
+
 
 ##How It Works
 
@@ -172,3 +180,5 @@ Dragon Ball: Dragon Ball is a property of its respective rights holders. This pr
 ##License
 
 MIT License © 2025 Victor Stanton
+
+<img width="1630" height="894" alt="image" src="https://github.com/user-attachments/assets/2e06a163-6946-4960-abff-7f448aa8fae7" />
