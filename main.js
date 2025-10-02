@@ -177,16 +177,16 @@ async function getOpponentKi() {
 }
 
 // const unitDamage = {
-//   hundreds: 0.01,
-//   thousand: 0.05,
-//   million: 0.1,
-//   billion: 0.2,
-//   trillion: 0.3,
-//   quadrillion: 0.4,
-//   quintillion: 0.5,
-//   sextillion: 0.6,
-//   septillion: 0.7,
-//   googolplex: 0.8,
+//   hundreds: 0.10,
+//   thousand: 0.15,
+//   million: 0.20,
+//   billion: 0.25,
+//   trillion: 0.30,
+//   quadrillion: 0.35,
+//   quintillion: 0.40,
+//   sextillion: 0.45,
+//   septillion: 0.50,
+//   googolplex: 0.55,
 // };
 
 let powerDamage = null;
@@ -195,37 +195,37 @@ async function fighterPowerDamage() {
   let fighterKi = await getFighterKi();
   let lowerCase = String(fighterKi).toLowerCase();
   if (lowerCase.includes("googolplex")) {
-    powerDamage = 0.8;
+    powerDamage = 0.55;
     return powerDamage;
   } else if (lowerCase.includes("septillion")) {
-    powerDamage = 0.7;
-    return powerDamage;
-  } else if (lowerCase.includes("sextillion")) {
-    powerDamage = 0.6;
-    return powerDamage;
-  } else if (lowerCase.includes("quintillion")) {
     powerDamage = 0.5;
     return powerDamage;
+  } else if (lowerCase.includes("sextillion")) {
+    powerDamage = 0.45;
+    return powerDamage;
+  } else if (lowerCase.includes("quintillion")) {
+    powerDamage = 0.40;
+    return powerDamage;
   } else if (lowerCase.includes("quadrillion")) {
-    powerDamage = 0.4;
+    powerDamage = 0.35;
     return powerDamage;
   } else if (lowerCase.includes("trillion")) {
-    powerDamage = 0.3;
+    powerDamage = 0.30;
     return powerDamage;
   } else if (lowerCase.includes("billion")) {
-    powerDamage = 0.2;
+    powerDamage = 0.25;
     return powerDamage;
   } else {
     let rawKiNumb = Number(fighterKi.replaceAll(/[\s.,]/g, ""));
     console.log(rawKiNumb);
     if (rawKiNumb < 1000) {
-      powerDamage = 0.01;
+      powerDamage = 0.10;
       return powerDamage;
     } else if (rawKiNumb < 1000000) {
-      powerDamage = 0.05;
+      powerDamage = 0.15;
       return powerDamage;
     } else {
-      powerDamage = 0.1;
+      powerDamage = 0.2;
       return powerDamage;
     }
   }
@@ -240,25 +240,25 @@ async function opponentPowerDamage() {
   let opponentKi = await getOpponentKi();
   let lowerCase = String(opponentKi).toLowerCase();
   if (lowerCase.includes("googolplex")) {
-    oPowerDamage = 0.8;
+    oPowerDamage = 0.55;
     return oPowerDamage;
   } else if (lowerCase.includes("septillion")) {
-    oPowerDamage = 0.7;
-    return oPowerDamage;
-  } else if (lowerCase.includes("sextillion")) {
-    oPowerDamage = 0.6;
-    return oPowerDamage;
-  } else if (lowerCase.includes("quintillion")) {
     oPowerDamage = 0.5;
     return oPowerDamage;
-  } else if (lowerCase.includes("quadrillion")) {
+  } else if (lowerCase.includes("sextillion")) {
+    oPowerDamage = 0.45;
+    return oPowerDamage;
+  } else if (lowerCase.includes("quintillion")) {
     oPowerDamage = 0.4;
+    return oPowerDamage;
+  } else if (lowerCase.includes("quadrillion")) {
+    oPowerDamage = 0.35;
     return oPowerDamage;
   } else if (lowerCase.includes("trillion")) {
     oPowerDamage = 0.3;
     return oPowerDamage;
   } else if (lowerCase.includes("billion")) {
-    oPowerDamage = 0.2;
+    oPowerDamage = 0.25;
     return oPowerDamage;
   } else {
     if (opponentKi == null || opponentKi == NaN) {
@@ -268,13 +268,13 @@ async function opponentPowerDamage() {
       let rawKiNumb = Number(opponentKi.replaceAll(/[\s.,]/g, ""));
       console.log(rawKiNumb);
       if (rawKiNumb < 1000) {
-        oPowerDamage = 0.01;
+        oPowerDamage = 0.1;
         return oPowerDamage;
       } else if (rawKiNumb < 1000000) {
-        oPowerDamage = 0.05;
+        oPowerDamage = 0.15;
         return oPowerDamage;
       } else {
-        oPowerDamage = 0.1;
+        oPowerDamage = 0.2;
         return oPowerDamage;
       }
     }
@@ -324,7 +324,7 @@ let opponentNum = 1;
 async function attack() {
   attackBtn.disabled = true;
   if (opponentHealthPct > 0) {
-    if (Math.random() < 0.8) {
+    if (Math.random() < 0.50) {
       sphere.classList.add("animated-hit");
       setTimeout(() => {
         sphere.classList.remove("animated-hit");
@@ -338,6 +338,26 @@ async function attack() {
             fighterName === "Freezer" ||fighterName === "Zarbon" ||fighterName === "Celula" ||
             fighterName === "Gohan") {
           transformationBtn.disabled = false;
+          } else if (powerDamage <= 0.1) {
+            fighterHealthPct = 100;
+            fighterHealth.style.width = fighterHealthPct + "%";
+            fighterHealth.textContent = fighterHealthPct + "%";
+            powerDamage = powerDamage*2;
+          } else if (powerDamage <= 0.15) {
+            fighterHealthPct = Math.min(100, fighterHealthPct + 25);
+            fighterHealth.style.width = fighterHealthPct + "%";
+            fighterHealth.textContent = fighterHealthPct + "%";
+            powerDamage = powerDamage*1.5;
+          } else if (powerDamage <= 0.2) {
+            fighterHealthPct = Math.min(100, fighterHealthPct + 15);
+            fighterHealth.style.width = fighterHealthPct + "%";
+            fighterHealth.textContent = fighterHealthPct + "%";
+            powerDamage = powerDamage*1.25;
+          } else if (powerDamage <= 0.25) {
+            fighterHealthPct = Math.min(100, fighterHealthPct + 10);
+            fighterHealth.style.width = fighterHealthPct + "%";
+            fighterHealth.textContent = fighterHealthPct + "%";
+            powerDamage = powerDamage*1.1;
           }
           for (let i = 0; i < opponentNum; i++) {
             let dragonBall = i + 1;
@@ -367,7 +387,7 @@ async function attack() {
       }, 2000);
       setTimeout(() => {
         window.alert(`You missed!`);
-        if (Math.random() < 0.7) {
+        if (Math.random() < 0.75) {
           sphere2.classList.add("o-animated-hit");
           setTimeout(() => {
             sphere2.classList.remove("o-animated-hit");
